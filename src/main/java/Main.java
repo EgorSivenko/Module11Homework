@@ -26,7 +26,7 @@ public class Main {
         final long a = 25214903917L;
         final long c = 11L;
         final long m = (long) Math.pow(2, 48);
-        final long seed = a / c;
+        final long seed = System.currentTimeMillis();
 
         Stream<Long> randomStream = generateRandomStream(seed, a, c, m);
         randomStream.limit(10).forEach(n -> System.out.print(n + " "));
@@ -55,11 +55,11 @@ public class Main {
     }
 
     public static String sortNumbers(String[] stringsOfNumbers) {
-        return Arrays.stream(String.join(" ", stringsOfNumbers)
-                .replace(",", "")
-                .split(" +"))
+        String delimiter = ", ";
+        return Arrays.stream(String.join(delimiter, stringsOfNumbers)
+                .split(delimiter))
                 .sorted()
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining(delimiter));
     }
 
     public static Stream<Long> generateRandomStream(long seed, long a, long c, long m) {
